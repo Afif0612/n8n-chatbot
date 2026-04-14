@@ -1,0 +1,149 @@
+{
+  "name": "My workflow 7",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "authentication": "n8nUserAuth",
+        "initialMessages": "Hi dude! 👋\nI\"m oppay. How can I assist you today?",
+        "availableInChat": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "64c1946a-ed27-44ff-a759-100c05b1292e",
+      "name": "When chat message received",
+      "webhookId": "c7405dc2-d9ea-471c-b9ac-ec8384eed6f7"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Kamu pemberi bantuan dan layanan informasi yang friendly.\nJaga jawaban kurang dari 200 kata. Jika tidak mendapatkan jawaban dari informasi yang tersedia, jangan mengarang jawaban.\nGunakan bahasa Indonesia baku dan emoji secukupnya.\nJika perlu (opsional), ada contoh Q/A pendek agar model meniru polanya."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        160,
+        -16
+      ],
+      "id": "ee8b8ee8-549c-4528-b22e-243fc2535a53",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        160,
+        176
+      ],
+      "id": "c2678fae-28f5-49ec-a9d0-a07b59146986",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ggwrGSWmB4XQQXrs",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        272,
+        144
+      ],
+      "id": "3d29f4cd-45db-4685-a930-13da6769f9c5",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1c0fldGnAQubhTdteI8zQbq2PYzGFKZIkLlf2E2ndoAE",
+          "mode": "list",
+          "cachedResultName": "n8n 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1c0fldGnAQubhTdteI8zQbq2PYzGFKZIkLlf2E2ndoAE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 231294392,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1c0fldGnAQubhTdteI8zQbq2PYzGFKZIkLlf2E2ndoAE/edit#gid=231294392"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        352,
+        240
+      ],
+      "id": "a8a627a4-6519-43b4-9d52-88d93c758830",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gkyf4BcFvrr2NxHq",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d153d9f9-56e0-441d-93b2-83a87e3b57dc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "de3436f94349ac3f2a105a1ed1dc5ede01f0ebfe9d8851c9608383cd5d0d2d25"
+  },
+  "id": "sBCn8N6lcATGcB9x",
+  "tags": []
+}
